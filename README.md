@@ -1,5 +1,5 @@
 # CGAN
-Make realistic face images from 3D simulated
+Make realistic face images that reflects capture conditions in the target domain while controlling the GAN output to generate faces under desired pose conditions.
 
 
 ## Paper:
