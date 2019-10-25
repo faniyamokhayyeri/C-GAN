@@ -79,7 +79,7 @@ class CGAN():
                                     'mae', 'mae',
                                     'mae', 'mae'],
                             loss_weights=[  1, 1,
-                                            self.lambda_cycle, self.lambda_cycle,
+                                            self.lambda_c, self.lambda_c,
                                             self.lambda_id, self.lambda_id ],
                             optimizer=optimizer)
 
@@ -180,12 +180,12 @@ class CGAN():
                                                                             np.mean(g_loss[5:6]),
                                                                             elapsed_time))
 
-                if batch_i % sample_interval == 0:
+                if batch_i % interval == 0:
                     self.sample_images(epoch, batch_i)
 
     def sample_images(self, epoch, batch_i):
         os.makedirs('output/%s' % self.dataset_name, exist_ok=True)
-        r, c = 2, 3
+        r, c = 1, 3
 
         imgs_sim = self.data_loader.load_data(domain="sim", batch_size=1, is_testing=True)
         imgs_target = self.data_loader.load_data(domain="target", batch_size=1, is_testing=True)
@@ -200,16 +200,22 @@ class CGAN():
 
         gen_imgs = 0.5 * gen_imgs + 0.5
 
-        titles = ['Original', 'Simulated', 'Refined']
+        titles = ['Simulated', 'Refined','Target']
         fig, axs = plt.subplots(r, c)
-        cnt = 0
-        for i in range(r):
-            for j in range(c):
-                axs[i,j].imshow(gen_imgs[cnt])
-                axs[i, j].set_title(titles[j])
-                axs[i,j].axis('off')
-                cnt += 1
-        fig.savefig("images/%s/%d_%d.png" % (self.dataset_name, epoch, batch_i))
+
+        axs[0].imshow(gen_imgs[0])
+        axs[0].set_title(titles[0])
+        axs[0].axis('off')
+
+        axs[1].imshow(gen_imgs[1])
+        axs[1].set_title(titles[1])
+        axs[1].axis('off')
+
+        axs[2].imshow(gen_imgs[3])
+        axs[2].set_title(titles[2])
+        axs[2].axis('off')
+
+        fig.savefig("output/%s/%d_%d.png" % (self.dataset_name, epoch, batch_i))
         plt.close()
 
 

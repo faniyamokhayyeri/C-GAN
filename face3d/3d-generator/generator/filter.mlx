@@ -1,0 +1,7 @@
+<!DOCTYPE FilterScript>
+<FilterScript>
+ <filter name="Compute curvature principal directions">
+  <Param enum_val0="Taubin approximation" enum_val1="Principal Component Analysis" enum_cardinality="4" enum_val2="Normal Cycles" enum_val3="Pseudoinverse Quadric Fitting" type="RichEnum" value="3" name="Method"/>
+  <Param type="RichBool" value="true" name="Autoclean"/>
+ </filter>
+</FilterScript>

@@ -8,8 +8,8 @@ class DataLoader():
         self.img_res = img_res
 
     def load_data(self, domain, batch_size=1, is_testing=False):
-        data_type = "train%s" % domain if not is_testing else "test%s" % domain
-        path = glob('./datasets/%s/%s/*' % (self.dataset_name, data_type))
+        data_type = "train_%s" % domain if not is_testing else "test_%s" % domain
+        path = glob('./data/%s/%s/*' % (self.dataset_name, data_type))
 
         batch_images = np.random.choice(path, size=batch_size)
 
@@ -31,8 +31,8 @@ class DataLoader():
 
     def load_batch(self, batch_size=1, is_testing=False):
         data_type = "train" if not is_testing else "val"
-        path_A = glob('./datasets/%s/%sA/*' % (self.dataset_name, data_type))
-        path_B = glob('./datasets/%s/%sB/*' % (self.dataset_name, data_type))
+        path_A = glob('./data/%s/%s_sim/*' % (self.dataset_name, data_type))
+        path_B = glob('./data/%s/%s_target/*' % (self.dataset_name, data_type))
 
         self.n_batches = int(min(len(path_A), len(path_B)) / batch_size)
         total_samples = self.n_batches * batch_size
