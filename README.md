@@ -6,8 +6,12 @@ Make realistic face images that reflects capture conditions in the target domain
 
 Official implementation of "Cross-Domain Face Synthesis using a Controllable GAN" WACV 2020.
 
+## Data
 
-## Instructions:
+- **[ChokePoint](http://arma.sourceforge.net/chokepoint/)** 
+- **[COX-S2V](http://vipl.ict.ac.cn/view_database.php?id=3)** 
+
+## Prerequisite:
 __Install:__
 * keras
 * tensorflow-gpu
