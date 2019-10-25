@@ -4,7 +4,7 @@ Make realistic face images from 3D simulated
 
 ## Paper:
 
-Official Matlab implementation of "Cross-Domain Face Synthesis using a Controllable GAN" WACV 2020.
+Official implementation of "Cross-Domain Face Synthesis using a Controllable GAN" WACV 2020.
 
 
 ## Instructions:
