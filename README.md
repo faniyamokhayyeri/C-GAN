@@ -4,7 +4,7 @@ Make realistic face images that reflects capture conditions in the target domain
 
 ## Paper:
 
-Official implementation of "Cross-Domain Face Synthesis using a Controllable GAN" WACV 2020.
+WACV 2020: Cross-Domain Face Synthesis using a Controllable GAN
 
 ## Data
 
