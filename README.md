@@ -2,6 +2,11 @@
 Make realistic face images from 3D simulated
 
 
+## Paper:
+
+WACV 2020: Cross-Domain Face Synthesis using a Controllable GAN
+
+
 ## Instructions:
 __Install:__
 * keras
