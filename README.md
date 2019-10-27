@@ -1,17 +1,8 @@
 # CGAN
-Make realistic face images that reflects capture conditions in the target domain while controlling the GAN output to generate faces under desired pose conditions.
+Make realistic face images from 3D simulated
 
 
-## Paper:
-
-WACV 2020: Cross-Domain Face Synthesis using a Controllable GAN
-
-## Data
-
-- **[ChokePoint](http://arma.sourceforge.net/chokepoint/)** 
-- **[COX-S2V](http://vipl.ict.ac.cn/view_database.php?id=3)** 
-
-## Prerequisite:
+## Instructions:
 __Install:__
 * keras
 * tensorflow-gpu
@@ -33,32 +24,26 @@ __Generating 3D simulated images from still images:__
 
 * Put the still images in "./face3d/input/", while each identity is in a seperate folder.
 * Run:
-
 ```
 pyhton face3d.py
 ```
-
 * 3D rendered results will be in "face3d/output"
 
 
 __Using CGAN to refine the 3D simulated images:__
 
 Put the train and test 3D simulated data in:
-
 ```
 ./data/chokepoint/train_sim
 ./data/chokepoint/train_sim
 ```
 
 Put the train and test target data in:
-
 ```
 data/chokepoint/train_target
 data/chokepoint/train_target
-```
 
 Put the test and train labels (only 3D simulated data needs label) in:
-
 ```
 ./data/chokepoint/test_sim_labels.txt
 ./data/chokepoint/train_sim_labels.txt
