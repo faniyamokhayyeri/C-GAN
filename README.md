@@ -1,4 +1,4 @@
-# CGAN
+# C-GAN
 Make realistic face images from 3D simulated
 
 
