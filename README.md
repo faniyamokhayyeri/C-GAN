@@ -65,3 +65,9 @@ Results will be in "./output"
 ## Data
 
 - **[ChokePoint](http://arma.sourceforge.net/chokepoint/)** 
+- **[COX-S2V](http://vipl.ict.ac.cn/view_database.php?id=3)** 
+
+
+## Prerequisite
+
+- **[Download the Basel Face Model](http://faces.cs.unibas.ch/bfm/main.php?nav=1-2&id=downloads)** and move `01_MorphableModel.mat` into the folders
