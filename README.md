@@ -1,4 +1,4 @@
-**[Cross-Domain Face Synthesis using a Controllable GAN](https://arxiv.org/abs/1910.14247)**
+Official implementation of  **[Cross-Domain Face Synthesis using a Controllable GAN](https://arxiv.org/abs/1910.14247)**
 ===========
 
 This page contains end-to-end demo code that generates a set of synthetic face images under a specified pose from an unconstrained 2D face image based on the information obtained from target domain.  
