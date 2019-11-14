@@ -4,6 +4,9 @@
 # C-GAN
 Make realistic face images from 3D simulated
 
+## Prerequisite
+
+- **[Download the Basel Face Model](http://faces.cs.unibas.ch/bfm/main.php?nav=1-2&id=downloads)** and move `01_MorphableModel.mat` into the folders
 
 ## Instructions:
 __Install:__
@@ -68,6 +71,4 @@ Results will be in "./output"
 - **[COX-S2V](http://vipl.ict.ac.cn/view_database.php?id=3)** 
 
 
-## Prerequisite
 
-- **[Download the Basel Face Model](http://faces.cs.unibas.ch/bfm/main.php?nav=1-2&id=downloads)** and move `01_MorphableModel.mat` into the folders
