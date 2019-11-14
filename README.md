@@ -1,8 +1,6 @@
 **[Cross-Domain Face Synthesis using a Controllable GAN](https://arxiv.org/abs/1910.14247)**
 ===========
 
-# C-GAN
-Make realistic face images from 3D simulated
 
 ## Prerequisite
 
