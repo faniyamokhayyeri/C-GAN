@@ -5,7 +5,7 @@ This page contains end-to-end demo code that generates a set of synthetic face i
 
 ## Prerequisite
 
-Download the [Basel Face Model](https://faces.dmi.unibas.ch/bfm/) and move `01_MorphableModel.mat` into the folder.
+Download the [Basel Face Model](https://faces.dmi.unibas.ch/bfm/)** and move `01_MorphableModel.mat` into the folder.
 
 ## Instructions:
 __Install:__
@@ -24,10 +24,9 @@ sudo apt-get install meshlab=1.3.2+dfsg1-2build4
 pip install git+https://www.github.com/keras-team/keras-contrib.git
 ```
 
-__Generate 3D simulated images from still images:__
+## Generate 3D simulated images from still images:
 
 Put the still images in "./face3d/input/", while each identity is in a seperate folder.
-
 Run:
 ```
 pyhton face3d.py
@@ -38,7 +37,7 @@ pyhton face3d.py
 "face3d/output"
 ```
 
-__Use C-GAN to refine the 3D simulated images:__
+## Use CGAN to refine the 3D simulated images:
 
 Put the train and test 3D simulated data in:
 ```
@@ -78,11 +77,10 @@ Results will be in:
 
 If you find this work useful, please cite our paper with the following bibtex:
 
-@article{mokhayeri2018domain,
-  title={Cross-Domain Face Synthesis using a Controllable GAN},
-  author={Mokhayeri, Fania and Granger, Eric and Kamali, Kaveh},
-  booktitle={WACV},
-  year={2020},
-  publisher={IEEE}
-}
 
+@InProceedings{Mokhayeri_2020_WACV,
+author = {Mokhayeri, Fania and Kamali, Kaveh and Granger, Eric},
+title = {Cross-Domain Face Synthesis using a Controllable GAN},
+booktitle = {The IEEE Winter Conference on Applications of Computer Vision (WACV)},
+year = {2020}
+}
