@@ -24,7 +24,7 @@ sudo apt-get install meshlab=1.3.2+dfsg1-2build4
 pip install git+https://www.github.com/keras-team/keras-contrib.git
 ```
 
-__Generate 3D simulated images from still images:__
+## Generate 3D simulated images from still images:
 
 Put the still images in "./face3d/input/", while each identity is in a seperate folder.
 Run:
@@ -37,7 +37,7 @@ pyhton face3d.py
 "face3d/output"
 ```
 
-__UsE CGAN to refine the 3D simulated images:__
+## Use CGAN to refine the 3D simulated images:
 
 Put the train and test 3D simulated data in:
 ```
