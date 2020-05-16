@@ -5,7 +5,7 @@ This page contains end-to-end demo code that generates a set of synthetic face i
 
 ## Prerequisite
 
-- **Download the [Basel Face Model](https://faces.dmi.unibas.ch/bfm/)** and move `01_MorphableModel.mat` into the folders
+- Download the [Basel Face Model](https://faces.dmi.unibas.ch/bfm/)** and move `01_MorphableModel.mat` into the folders
 
 ## Instructions:
 __Install:__
@@ -25,14 +25,14 @@ sudo apt-get install meshlab=1.3.2+dfsg1-2build4
 pip install git+https://www.github.com/keras-team/keras-contrib.git
 ```
 
-__GeneratE 3D simulated images from still images:__
+__Generate 3D simulated images from still images:__
 
-* Put the still images in "./face3d/input/", while each identity is in a seperate folder.
-* Run:
+Put the still images in "./face3d/input/", while each identity is in a seperate folder.
+Run:
 ```
 pyhton face3d.py
 ```
-3D rendered results will be in
+3D rendered results will be in:
 
 ```
 "face3d/output"
