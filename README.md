@@ -69,5 +69,15 @@ Results will be in "./output"
 - **[ChokePoint](http://arma.sourceforge.net/chokepoint/)** 
 - **[COX-S2V](http://vipl.ict.ac.cn/view_database.php?id=3)** 
 
+## Citation
 
+If you find this work useful, please cite our paper with the following bibtex:
+
+@article{mokhayeri2018domain,
+  title={Cross-Domain Face Synthesis using a Controllable GAN},
+  author={Mokhayeri, Fania and Granger, Eric and Kamali, Kaveh},
+  booktitle={WACV},
+  year={2020},
+  publisher={IEEE}
+}
 
