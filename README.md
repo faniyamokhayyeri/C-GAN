@@ -57,7 +57,6 @@ Put the test and train labels (only 3D simulated data needs label) in:
 ```
 Run:
 python cgan.py
-```
 
 Results will be in "./output"
 
