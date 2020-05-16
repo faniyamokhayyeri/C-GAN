@@ -50,10 +50,10 @@ data/chokepoint/train_target
 
 Put the test and train labels (only 3D simulated data needs label) in:
 ```
+
+```
 ./data/chokepoint/test_sim_labels.txt
 ./data/chokepoint/train_sim_labels.txt
-```
-
 ```
 Run:
 python cgan.py
