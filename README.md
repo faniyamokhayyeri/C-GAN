@@ -5,7 +5,7 @@ This page contains end-to-end demo code that generates a set of synthetic face i
 
 ## Prerequisite
 
-* __Download the [Basel Face Model](https://faces.dmi.unibas.ch/bfm/)** and move `01_MorphableModel.mat` into the folders
+__Download the [Basel Face Model](https://faces.dmi.unibas.ch/bfm/)** and move `01_MorphableModel.mat` into the folders
 
 ## Instructions:
 __Install:__
