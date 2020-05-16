@@ -9,10 +9,10 @@ This page contains end-to-end demo code that generates a set of synthetic face i
 
 ## Instructions:
 __Install:__
-* keras
-* tensorflow-gpu
-* scipy 1.1.0
-* scikit-image
+1. keras
+2. tensorflow-gpu
+3. scipy 1.1.0
+4. scikit-image
 
 ```
 sudo apt-add-repository ppa:zarquon42/meshlab
@@ -25,7 +25,7 @@ sudo apt-get install meshlab=1.3.2+dfsg1-2build4
 pip install git+https://www.github.com/keras-team/keras-contrib.git
 ```
 
-__Generate 3D simulated images from still images:__
+- Generate 3D simulated images from still images:__
 
 Put the still images in "./face3d/input/", while each identity is in a seperate folder.
 Run:
