@@ -38,7 +38,7 @@ pyhton face3d.py
 "face3d/output"
 ```
 
-__Use CGAN to refine the 3D simulated images:__
+__Use C-GAN to refine the 3D simulated images:__
 
 Put the train and test 3D simulated data in:
 ```
