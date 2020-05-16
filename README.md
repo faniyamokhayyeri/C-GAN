@@ -54,6 +54,7 @@ Put the test and train labels (only 3D simulated data needs label) in:
 ./data/chokepoint/train_sim_labels.txt
 ```
 
+```
 Run:
 python cgan.py
 ```
@@ -61,7 +62,6 @@ python cgan.py
 Results will be in "./output"
 
 
-```
 ## Data
 
 - **[ChokePoint](http://arma.sourceforge.net/chokepoint/)** 
