@@ -24,7 +24,7 @@ sudo apt-get install meshlab=1.3.2+dfsg1-2build4
 pip install git+https://www.github.com/keras-team/keras-contrib.git
 ```
 
---Generate 3D simulated images from still images:--
+- **Generate 3D simulated images from still images:**
 
 Put the still images in "./face3d/input/", while each identity is in a seperate folder.
 Run:
