@@ -5,7 +5,7 @@ This page contains end-to-end demo code that generates a set of synthetic face i
 
 ## Prerequisite
 
-__Download the [Basel Face Model](https://faces.dmi.unibas.ch/bfm/)** and move `01_MorphableModel.mat` into the folder.__
+Download the [Basel Face Model](https://faces.dmi.unibas.ch/bfm/)** and move `01_MorphableModel.mat` into the folder.
 
 ## Instructions:
 __Install:__
@@ -20,12 +20,11 @@ sudo apt-get update
 sudo apt-get install meshlab=1.3.2+dfsg1-2build4
 ```
 
-
 ```
 pip install git+https://www.github.com/keras-team/keras-contrib.git
 ```
 
-- Generate 3D simulated images from still images:__
+__Generate 3D simulated images from still images:__
 
 Put the still images in "./face3d/input/", while each identity is in a seperate folder.
 Run:
@@ -58,14 +57,13 @@ Put the test and train labels (only 3D simulated data needs label) in:
 ./data/chokepoint/test_sim_labels.txt
 ./data/chokepoint/train_sim_labels.txt
 ```
-Run:
 
+Run:
 ```
 python cgan.py
 ```
 
 Results will be in:
-
 ```
 "./output"
 ```
