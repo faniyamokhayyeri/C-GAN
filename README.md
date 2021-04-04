@@ -9,18 +9,24 @@ Download the [Basel Face Model](https://faces.dmi.unibas.ch/bfm/)** and move `01
 
 ## Instructions
 __Install:__
-1. keras
-2. tensorflow-gpu
-3. scipy 1.1.0
-4. scikit-image
 
 ```
-sudo apt-add-repository ppa:zarquon42/meshlab
-sudo apt-get update
-sudo apt-get install meshlab=1.3.2+dfsg1-2build4
-```
+conda create -n CGAN python=3.6
+conda activate CGAN
 
-```
+pip install \
+pyglet \
+pywavefront \
+opencv-python \
+imutils  \
+ https://pypi.python.org/packages/da/06/bd3e241c4eb0a662914b3b4875fc52dd176a9db0d4a2c915ac2ad8800e9e/dlib-19.7.0-cp36-cp36m-win_amd64.whl#md5=b7330a5b2d46420343fbed5df69e6a3f
+
+
+pip install \
+    matplotlib \
+    keras==2.2.5 \
+    tensorflow-gpu==1.14
+
 pip install git+https://www.github.com/keras-team/keras-contrib.git
 ```
 
@@ -29,7 +35,9 @@ pip install git+https://www.github.com/keras-team/keras-contrib.git
 Put the still images in "./face3d/input/", while each identity is in a seperate folder.
 Run:
 ```
+cd face3d
 pyhton face3d.py
+cd ..
 ```
 3D rendered results will be in:
 
