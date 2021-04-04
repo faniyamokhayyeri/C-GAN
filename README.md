@@ -16,7 +16,6 @@ install MeshLab 2016.12
 conda create -n CGAN python=3.6
 conda activate CGAN
 
-pip install 
 pip install pygle
 pip install pywavefront
 pip install opencv-python
