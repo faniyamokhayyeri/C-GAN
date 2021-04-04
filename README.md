@@ -9,6 +9,7 @@ Download the [Basel Face Model](https://faces.dmi.unibas.ch/bfm/)** and move `01
 
 ## Instructions
 __Install:__
+install MeshLab 2016.12
 
 ```
 conda create -n CGAN python=3.6
