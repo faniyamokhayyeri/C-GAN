@@ -16,18 +16,16 @@ install MeshLab 2016.12
 conda create -n CGAN python=3.6
 conda activate CGAN
 
-pip install \
-pyglet \
-pywavefront \
-opencv-python \
-imutils  \
- https://pypi.python.org/packages/da/06/bd3e241c4eb0a662914b3b4875fc52dd176a9db0d4a2c915ac2ad8800e9e/dlib-19.7.0-cp36-cp36m-win_amd64.whl#md5=b7330a5b2d46420343fbed5df69e6a3f
+pip install 
+pip install pygle
+pip install pywavefront
+pip install opencv-python
+pip install imutils
+pip install  https://pypi.python.org/packages/da/06/bd3e241c4eb0a662914b3b4875fc52dd176a9db0d4a2c915ac2ad8800e9e/dlib-19.7.0-cp36-cp36m-win_amd64.whl#md5=b7330a5b2d46420343fbed5df69e6a3f
 
-
-pip install \
-    matplotlib \
-    keras==2.2.5 \
-    tensorflow-gpu==1.14
+pip install matplotlib
+pip install keras==2.2.5
+pip install tensorflow-gpu==1.14
 
 pip install git+https://www.github.com/keras-team/keras-contrib.git
 ```
