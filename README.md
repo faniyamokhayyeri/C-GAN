@@ -7,11 +7,12 @@ This page contains end-to-end demo code that generates a set of synthetic face i
 
 Download the [Basel Face Model](https://faces.dmi.unibas.ch/bfm/)** and move `01_MorphableModel.mat` into the folder.
 
-## Instructions
+## Instructions for Windows 10
 __Install:__
 
 install MeshLab 2016.12
 
+add "C:\Program Files\VCG\MeshLab" to the environmental variable "path"
 ```
 conda create -n CGAN python=3.6
 conda activate CGAN
