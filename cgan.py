@@ -13,7 +13,9 @@ from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.convolutional import UpSampling2D, Conv2D
 from keras.models import Sequential, Model
 from keras.optimizers import Adam
-
+from helpers.refiner import build_refiner
+from helpers.classifier import build_classifier
+from helpers.discriminator import build_discriminator
 
 class CGAN():
     def __init__(self):
@@ -37,42 +39,42 @@ class CGAN():
 
         optimizer = Adam(0.0002, 0.5)
 
-        self.d_sim = self.build_discriminator()
-        self.d_target = self.build_discriminator()
-        self.d_sim.compile(loss='mse',
+        self.D_R = build_discriminator(self.img_shape, self.df)
+        self.D_F = build_discriminator(self.img_shape, self.df)
+        self.D_R.compile(loss='mse',
             optimizer=optimizer,
             metrics=['accuracy'])
-        self.d_target.compile(loss='mse',
+        self.D_F.compile(loss='mse',
             optimizer=optimizer,
             metrics=['accuracy'])
 
 
-        self.g_R1 = self.build_refiner()
-        self.g_R2 = self.build_refiner()
+        self.Refiner = build_refiner(self.img_shape, self.gf, self.channels)
+        self.Classifier = build_classifier(self.img_shape, self.gf, self.channels)
 
         img_sim = Input(shape=self.img_shape)
         img_target = Input(shape=self.img_shape)
 
-        refined_target = self.g_R1(img_sim)
-        refined_sim = self.g_R2(img_target)
+        refineD_F = self.Refiner(img_sim)
+        refineD_R = self.Classifier(img_target)
 
-        rec_sim = self.g_R2(refined_target)
-        rec_target = self.g_R1(refined_sim)
+        rec_sim = self.Classifier(refineD_F)
+        rec_target = self.Refiner(refineD_R)
 
-        img_sim_id = self.g_R2(img_sim)
-        img_target_id = self.g_R1(img_target)
-
-
-        self.d_sim.trainable = False
-        self.d_target.trainable = False
+        img_sim_id = self.Classifier(img_sim)
+        img_target_id = self.Refiner(img_target)
 
 
-        valid_sim = self.d_sim(refined_sim)
-        valid_target = self.d_target(refined_target)
+        self.D_R.trainable = False
+        self.D_F.trainable = False
+
+
+        valiD_R = self.D_R(refineD_R)
+        valiD_F = self.D_F(refineD_F)
 
 
         self.combined = Model(inputs=[img_sim, img_target],
-                              outputs=[ valid_sim, valid_target,
+                              outputs=[ valiD_R, valiD_F,
                                         rec_sim, rec_target,
                                         img_sim_id, img_target_id ])
         self.combined.compile(loss=['mse', 'mse',
@@ -83,62 +85,7 @@ class CGAN():
                                             self.lambda_id, self.lambda_id ],
                             optimizer=optimizer)
 
-    def build_refiner(self):
-
-        def conv2d(layer_input, filters, f_size=4):
-            d = Conv2D(filters, kernel_size=f_size, strides=2, padding='same')(layer_input)
-            d = LeakyReLU(alpha=0.2)(d)
-            d = InstanceNormalization()(d)
-            return d
-
-        def deconv2d(layer_input, skip_input, filters, f_size=4, dropout_rate=0):
-            u = UpSampling2D(size=2)(layer_input)
-            u = Conv2D(filters, kernel_size=f_size, strides=1, padding='same', activation='relu')(u)
-            if dropout_rate:
-                u = Dropout(dropout_rate)(u)
-            u = InstanceNormalization()(u)
-            u = Concatenate()([u, skip_input])
-            return u
-
-
-        d0 = Input(shape=self.img_shape)
-
-
-        d1 = conv2d(d0, self.gf)
-        d2 = conv2d(d1, self.gf*2)
-        d3 = conv2d(d2, self.gf*4)
-        d4 = conv2d(d3, self.gf*8)
-
-
-        u1 = deconv2d(d4, d3, self.gf*4)
-        u2 = deconv2d(u1, d2, self.gf*2)
-        u3 = deconv2d(u2, d1, self.gf)
-
-        u4 = UpSampling2D(size=2)(u3)
-        output_img = Conv2D(self.channels, kernel_size=4, strides=1, padding='same', activation='tanh')(u4)
-
-        return Model(d0, output_img)
-
-    def build_discriminator(self):
-
-        def d_layer(layer_input, filters, f_size=4, normalization=True):
-            """Discriminator layer"""
-            d = Conv2D(filters, kernel_size=f_size, strides=2, padding='same')(layer_input)
-            d = LeakyReLU(alpha=0.2)(d)
-            if normalization:
-                d = InstanceNormalization()(d)
-            return d
-
-        img = Input(shape=self.img_shape)
-
-        d1 = d_layer(img, self.df, normalization=False)
-        d2 = d_layer(d1, self.df*2)
-        d3 = d_layer(d2, self.df*4)
-        d4 = d_layer(d3, self.df*8)
-
-        validity = Conv2D(1, kernel_size=4, strides=1, padding='same')(d4)
-
-        return Model(img, validity)
+    
 
     def train(self, epochs, batch_size=1, interval=50):
 
@@ -150,15 +97,15 @@ class CGAN():
         for epoch in range(epochs):
             for batch_i, (imgs_sim, imgs_target) in enumerate(self.data_loader.load_batch(batch_size)):
 
-                refined_target = self.g_R1.predict(imgs_sim)
-                refined_sim = self.g_R2.predict(imgs_target)
+                refineD_F = self.Refiner.predict(imgs_sim)
+                refineD_R = self.Classifier.predict(imgs_target)
 
-                dsim_loss_real = self.d_sim.train_on_batch(imgs_sim, valid)
-                dsim_loss_refined = self.d_sim.train_on_batch(refined_sim, refined)
+                dsim_loss_real = self.D_R.train_on_batch(imgs_sim, valid)
+                dsim_loss_refined = self.D_R.train_on_batch(refineD_R, refined)
                 dsim_loss = 0.5 * np.add(dsim_loss_real, dsim_loss_refined)
 
-                dtarget_loss_real = self.d_target.train_on_batch(imgs_target, valid)
-                dtarget_loss_refined = self.d_target.train_on_batch(refined_target, refined)
+                dtarget_loss_real = self.D_F.train_on_batch(imgs_target, valid)
+                dtarget_loss_refined = self.D_F.train_on_batch(refineD_F, refined)
                 dtarget_loss = 0.5 * np.add(dtarget_loss_real, dtarget_loss_refined)
 
                 d_loss = 0.5 * np.add(dsim_loss, dtarget_loss)
@@ -190,13 +137,13 @@ class CGAN():
         imgs_sim = self.data_loader.load_data(domain="sim", batch_size=1, is_testing=True)
         imgs_target = self.data_loader.load_data(domain="target", batch_size=1, is_testing=True)
 
-        refined_target = self.g_R1.predict(imgs_sim)
-        refined_sim = self.g_R2.predict(imgs_target)
+        refineD_F = self.Refiner.predict(imgs_sim)
+        refineD_R = self.Classifier.predict(imgs_target)
 
-        rec_sim = self.g_R2.predict(refined_target)
-        rec_target = self.g_R1.predict(refined_sim)
+        rec_sim = self.Classifier.predict(refineD_F)
+        rec_target = self.Refiner.predict(refineD_R)
 
-        gen_imgs = np.concatenate([imgs_sim, refined_target, rec_sim, imgs_target, refined_sim, rec_target])
+        gen_imgs = np.concatenate([imgs_sim, refineD_F, rec_sim, imgs_target, refineD_R, rec_target])
 
         gen_imgs = 0.5 * gen_imgs + 0.5
 
