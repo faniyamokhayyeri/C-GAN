@@ -18,7 +18,7 @@ conda create -n CGAN python=3.6
 conda activate CGAN
 
 pip install dlib
-pip install pygle
+pip install pyglet
 pip install pywavefront
 pip install opencv-python
 pip install imutils
