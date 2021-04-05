@@ -17,6 +17,7 @@ add "C:\Program Files\VCG\MeshLab" to the environmental variable "path"
 conda create -n CGAN python=3.6
 conda activate CGAN
 
+pip install dlib
 pip install pygle
 pip install pywavefront
 pip install opencv-python
