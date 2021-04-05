@@ -56,10 +56,10 @@ class CGAN():
         img_target = Input(shape=self.img_shape)
 
         refineD_F = self.Refiner(img_sim)
-        refineD_R = self.Classifier(img_target)
+        img_class = self.Classifier(img_target)
 
         rec_sim = self.Classifier(refineD_F)
-        rec_target = self.Refiner(refineD_R)
+        rec_target = self.Refiner(img_class)
 
         img_sim_id = self.Classifier(img_sim)
         img_target_id = self.Refiner(img_target)
@@ -69,7 +69,7 @@ class CGAN():
         self.D_F.trainable = False
 
 
-        valiD_R = self.D_R(refineD_R)
+        valiD_R = self.D_R(img_class)
         valiD_F = self.D_F(refineD_F)
 
 
@@ -98,10 +98,10 @@ class CGAN():
             for batch_i, (imgs_sim, imgs_target) in enumerate(self.data_loader.load_batch(batch_size)):
 
                 refineD_F = self.Refiner.predict(imgs_sim)
-                refineD_R = self.Classifier.predict(imgs_target)
+                img_class = self.Classifier.predict(imgs_target)
 
                 dsim_loss_real = self.D_R.train_on_batch(imgs_sim, valid)
-                dsim_loss_refined = self.D_R.train_on_batch(refineD_R, refined)
+                dsim_loss_refined = self.D_R.train_on_batch(img_class, refined)
                 dsim_loss = 0.5 * np.add(dsim_loss_real, dsim_loss_refined)
 
                 dtarget_loss_real = self.D_F.train_on_batch(imgs_target, valid)
