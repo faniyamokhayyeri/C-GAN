@@ -38,6 +38,7 @@ Run:
 ```
 cd face3d
 pyhton face3d.py
+python pre.py
 cd ..
 ```
 3D rendered results will be in:
@@ -46,10 +47,6 @@ cd ..
 "face3d/output"
 ```
 
-Run:
-```
-python pre.py
-```
 
 - **Use C-GAN to refine the 3D simulated images:**
 
