@@ -1,15 +1,15 @@
 import scipy
 from glob import glob
 import numpy as np
+from keras.utils import np_utils
 
 class DataLoader():
-    def __init__(self, dataset_name, img_res=(128, 128)):
-        self.dataset_name = dataset_name
+    def __init__(self, img_res=(128, 128), n_classes=31):
         self.img_res = img_res
+        self.n_classes = n_classes
 
     def load_data(self, domain, batch_size=1, is_testing=False):
-        data_type = "train_%s" % domain if not is_testing else "test_%s" % domain
-        path = glob('./data/%s/%s/*' % (self.dataset_name, data_type))
+        path = glob('./data/%s/*' % (domain))
 
         batch_images = np.random.choice(path, size=batch_size)
 
@@ -28,11 +28,10 @@ class DataLoader():
         imgs = np.array(imgs)/127.5 - 1.
 
         return imgs
-
+        
     def load_batch(self, batch_size=1, is_testing=False):
-        data_type = "train" if not is_testing else "val"
-        path_A = glob('./data/%s/%s_sim/*' % (self.dataset_name, data_type))
-        path_B = glob('./data/%s/%s_target/*' % (self.dataset_name, data_type))
+        path_A = glob('./data/sim/*')
+        path_B = glob('./data/target/*')
 
         self.n_batches = int(min(len(path_A), len(path_B)) / batch_size)
         total_samples = self.n_batches * batch_size
@@ -45,10 +44,10 @@ class DataLoader():
         for i in range(self.n_batches-1):
             batch_A = path_A[i*batch_size:(i+1)*batch_size]
             batch_B = path_B[i*batch_size:(i+1)*batch_size]
-            imgs_A, imgs_B = [], []
-            for img_A, img_B in zip(batch_A, batch_B):
-                img_A = self.imread(img_A)
-                img_B = self.imread(img_B)
+            imgs_A, imgs_B, class_sim= [], [], []
+            for file_A, file_B in zip(batch_A, batch_B):
+                img_A = self.imread(file_A)
+                img_B = self.imread(file_B)
 
                 img_A = scipy.misc.imresize(img_A, self.img_res)
                 img_B = scipy.misc.imresize(img_B, self.img_res)
@@ -60,10 +59,15 @@ class DataLoader():
                 imgs_A.append(img_A)
                 imgs_B.append(img_B)
 
-            imgs_A = np.array(imgs_A)/127.5 - 1.
-            imgs_B = np.array(imgs_B)/127.5 - 1.
+                class_y = int(file_A.split("_")[-1].split(".")[0])
+                class_onehot = np_utils.to_categorical(class_y, num_classes=self.n_classes)
+                class_sim.append(class_onehot)
 
-            yield imgs_A, imgs_B
+            imgs_sim = np.array(imgs_A)/127.5 - 1.
+            imgs_target = np.array(imgs_B)/127.5 - 1.
+            class_sim = np.array(class_sim)
+
+            yield imgs_sim, imgs_target, class_sim
 
     def load_img(self, path):
         img = self.imread(path)

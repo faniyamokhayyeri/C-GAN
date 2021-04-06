@@ -8,7 +8,7 @@ from keras.layers import  MaxPooling2D
 from keras.models import Sequential, Model
 from keras.optimizers import Adam
 
-def build_discriminator(img_shape):
+def build_encoder(img_shape, n_features):
     img = Input(shape=img_shape)
 
     d1 = Conv2D(32, 3, 3, border_mode='same', activation='relu')(img)
@@ -21,12 +21,6 @@ def build_discriminator(img_shape):
     d3 = MaxPooling2D(pool_size=(2,2), strides=(2,2), border_mode='same')(d3)
 
     d5 = Flatten()(d3)
-    d6 = Dense(1, activation='sigmoid')(d5)
+    d6 = Dense(n_features, activation='relu')(d5)
 
     return Model(img, d6)
-
-def build_feature_discriminator(n_features):
-    f = Input(shape=(n_features,))
-    d = Dense(1, activation='sigmoid')(f)
-
-    return Model(f, d)

@@ -11,5 +11,5 @@ for dirc in dirclist:
         for f in filelist:
             filecount += 1
             if os.path.isfile('./output/' + dirc + '/' + f):
-                shutil.move('./output/' + dirc + '/' + f, './output/' + str(filecount) + '.png')
+                shutil.move('./output/' + dirc + '/' + f, './output/' + str(filecount) + '_' + dirc + '.png')
         shutil.rmtree('./output/' + dirc)

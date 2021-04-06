@@ -7,7 +7,8 @@ from keras.layers.convolutional import UpSampling2D, Conv2D
 from keras.models import Sequential, Model
 from keras.optimizers import Adam
 
-def build_refiner(img_shape, gf, channels):
+def build_refiner(img_shape, channels):
+    gf = 64
     def conv2d(layer_input, filters, f_size=4):
         d = Conv2D(filters, kernel_size=f_size, strides=2, padding='same')(layer_input)
         d = LeakyReLU(alpha=0.2)(d)
