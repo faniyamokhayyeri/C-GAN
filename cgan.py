@@ -13,10 +13,10 @@ from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.convolutional import UpSampling2D, Conv2D
 from keras.models import Sequential, Model
 from keras.optimizers import Adam
-from helpers.refiner import build_refiner
-from helpers.classifier import build_classifier
-from helpers.discriminator import build_discriminator, build_feature_discriminator
-from helpers.encoder import build_encoder
+from models.refiner import build_refiner
+from models.classifier import build_classifier
+from models.discriminator import build_discriminator, build_feature_discriminator
+from models.encoder import build_encoder
 
 class CGAN():
     def __init__(self):
