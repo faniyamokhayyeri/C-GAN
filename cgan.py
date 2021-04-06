@@ -51,6 +51,7 @@ class CGAN():
         self.Classifier.compile(loss='categorical_crossentropy',
                                 optimizer=optimizer,
                                 metrics=['accuracy'])
+        self.Classifier.trainable = False
 
         self.GAN_1 = Sequential()
         self.GAN_1.add(self.Refiner)
@@ -63,6 +64,12 @@ class CGAN():
         self.GAN_2.add(self.D_F)
         self.GAN_2.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
+        self.GAN_3 = Sequential()
+        self.GAN_3.add(self.Refiner)
+        self.GAN_3.add(self.Feature)
+        self.GAN_3.add(self.Classifier)
+        self.GAN_3.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+
     def train(self, epochs, batch_size=1, interval=50):
 
         start_time = datetime.datetime.now()
@@ -74,6 +81,7 @@ class CGAN():
             for batch_i, (imgs_sim, imgs_target, classes) in enumerate(self.data_loader.load_batch(batch_size)):
 
                 imgs_refined = self.Refiner.predict(imgs_sim)
+                feature_sim = self.Feature.predict(imgs_sim)
                 feature_target = self.Feature.predict(imgs_target)
                 feature_refined = self.Feature.predict(imgs_refined)
                 
@@ -85,21 +93,23 @@ class CGAN():
                 dfeature_loss_refined = self.D_F.train_on_batch(feature_refined, refined)
                 dfeature_loss = 0.5 * np.add(dfeature_loss_real, dfeature_loss_refined)
                 
-                class_loss = self.Classifier.train_on_batch(feature_refined, classes)
+                class_loss = self.Classifier.train_on_batch(feature_sim, classes)
 
                 gan1_loss = self.GAN_1.train_on_batch(imgs_sim, valid)
                 gan2_loss = self.GAN_2.train_on_batch(imgs_sim, valid)
+                gan3_loss = self.GAN_3.train_on_batch(imgs_sim, classes)
 
                 elapsed_time = datetime.datetime.now() - start_time
 
-                print ("[Epoch %d/%d] [targetatch %d/%d] [DR loss: %f] [DF loss: %f] [GAN_1 loss  %f] [GAN_2 loss  %f] [C loss: %f] time: %s " \
+                print ("[Epoch %d/%d] [targetatch %d/%d] [DR loss: %f] [DF loss: %f] [C loss: %f] [GAN_1 loss  %f] [GAN_2 loss  %f] [GAN_3 loss  %f] time: %s " \
                                                                         % ( epoch, epochs,
                                                                             batch_i, self.data_loader.n_batches,
                                                                             dimg_loss[0],
                                                                             dfeature_loss[0],
+                                                                            class_loss[0],
                                                                             gan1_loss[0],
                                                                             gan2_loss[0],
-                                                                            class_loss[0],
+                                                                            gan3_loss[0],
                                                                             elapsed_time))
 
                 if batch_i % interval == 0:
