@@ -46,25 +46,21 @@ cd ..
 "face3d/output"
 ```
 
+Run:
+```
+python pre.py
+```
+
 - **Use C-GAN to refine the 3D simulated images:**
 
-Put the train and test 3D simulated data in:
+Put the 3D simulated data in:
 ```
-./data/chokepoint/train_sim
-./data/chokepoint/train_sim
-```
-
-Put the train and test target data in:
-```
-data/chokepoint/train_target
-data/chokepoint/train_target
+./data/sim
 ```
 
-Put the test and train labels (only 3D simulated data needs label) in:
-
+Put the target data in:
 ```
-./data/chokepoint/test_sim_labels.txt
-./data/chokepoint/train_sim_labels.txt
+data/chokepoint/target
 ```
 
 Run:
